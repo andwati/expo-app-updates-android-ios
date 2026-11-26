@@ -3,21 +3,36 @@ name: Release
 on:
   push:
     tags:
-      - "v[0-9]+.[0-9]+.[0-9]+"
+      - "v*"
+  release:
+    types: [ published ]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Stable tag to release
+        required: true
+        type: string
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: release-${{ inputs.tag || github.ref_name }}
+
+env:
+  RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
 
 jobs:
   release:
+    if: github.event_name != 'release'
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          ref: refs/tags/${{ env.RELEASE_TAG }}
       - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
         with:
           version: 12.21.0
@@ -26,13 +41,11 @@ jobs:
           node-version: 24
           cache: pnpm
       - name: Check tag and package version
-        env:
-          RELEASE_TAG: ${{ github.ref_name }}
         run: |
           node -e '
             const expected = "v" + require("./package.json").version;
-            if (process.env.RELEASE_TAG !== expected) {
-              throw new Error("Release tag must match " + expected);
+            if (!/^v[0-9]+\.[0-9]+\.[0-9]+$/.test(expected) || process.env.RELEASE_TAG !== expected) {
+              throw new Error("Expected a stable release tag matching " + expected);
             }
           '
       - run: pnpm install --frozen-lockfile
@@ -41,7 +54,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-          RELEASE_TAG: ${{ github.ref_name }}
         run: |
           if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
             exit 0
@@ -59,3 +71,43 @@ jobs:
           else
             gh release create "$RELEASE_TAG" --verify-tag --title "$RELEASE_TAG" --generate-notes
           fi
+
+  publish-npm:
+    needs: release
+    if: >-
+      ${{ !cancelled() && vars.NPM_PUBLISH_ENABLED == 'true' &&
+          (needs.release.result == 'success' ||
+           (github.event_name == 'release' && !github.event.release.prerelease)) }}
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: refs/tags/${{ env.RELEASE_TAG }}
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+        with:
+          version: 12.21.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - name: Check tag and package version
+        run: |
+          node -e '
+            const expected = "v" + require("./package.json").version;
+            if (!/^v[0-9]+\.[0-9]+\.[0-9]+$/.test(expected) || process.env.RELEASE_TAG !== expected) {
+              throw new Error("Expected a stable release tag matching " + expected);
+            }
+          '
+      - run: pnpm install --frozen-lockfile
+      - name: Publish package with trusted publishing
+        run: |
+          package=$(node -p 'const { name, version } = require("./package.json"); name + "@" + version')
+          if pnpm view "$package" version --registry=https://registry.npmjs.org >/dev/null 2>&1; then
+            printf '%s is already published\n' "$package"
+            exit 0
+          fi
+          pnpm publish --no-git-checks --access public --registry=https://registry.npmjs.org
