@@ -14,6 +14,7 @@
 # Exclude monorepo build configuration
 /turbo.json
 /biome.json
+/docs/screenshots/
 /pnpm-workspace.yaml
 
 # Exclude test configuration
