@@ -1,0 +1,56 @@
+{
+  "name": "expo-app-updates-android-ios",
+  "version": "0.1.0",
+  "description": "in app updates for ios and android",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "node internal/module_scripts/build.js",
+    "clean": "node internal/module_scripts/clean.js",
+    "lint": "eslint src/",
+    "test": "node internal/module_scripts/test.js",
+    "prepare": "node internal/module_scripts/prepare.js",
+    "open:ios": "node internal/module_scripts/open-ios.js",
+    "open:android": "node internal/module_scripts/open-android.js"
+  },
+  "keywords": [
+    "react-native",
+    "expo",
+    "expo-app-updates-android-ios",
+    "ExpoAppUpdatesAndroidIos"
+  ],
+  "repository": "https://github.com/andwati/expo-app-updates-android-ios",
+  "bugs": {
+    "url": "https://github.com/andwati/expo-app-updates-android-ios/issues"
+  },
+  "author": "andwati <andwatiian@gmail.com> (https://github.com/andwati)",
+  "license": "MIT",
+  "homepage": "https://github.com/andwati/expo-app-updates-android-ios#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@biomejs/biome": "2.6.9",
+    "@react-native/jest-preset": "0.88.1",
+    "@types/jest": "^30.0.0",
+    "@types/react": "~19.3.0",
+    "babel-preset-expo": "~58.0.22",
+    "eslint-config-universe": "^16.1.2",
+    "expo": "^58.0.21",
+    "jest": "^30.0.0",
+    "jest-expo": "~58.0.13",
+    "react": "19.3.0",
+    "react-native": "0.88.1",
+    "typescript": "~6.0.3"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "roots": [
+      "<rootDir>/src"
+    ]
+  },
+  "peerDependencies": {
+    "expo": "*",
+    "react": "*",
+    "react-native": "*"
+  }
+}

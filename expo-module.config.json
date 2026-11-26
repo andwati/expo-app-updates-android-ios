@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["ExpoAppUpdatesAndroidIosModule"]
+  },
+  "android": {
+    "modules": ["com.andwati.appupdatesandroid.ExpoAppUpdatesAndroidIosModule"]
+  }
+}
