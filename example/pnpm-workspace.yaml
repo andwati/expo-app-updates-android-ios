@@ -1,2 +1,0 @@
-# Keeps the example app out of the module's pnpm workspace, so that `pnpm install`
-# run in this directory installs the example app's own dependencies.
