@@ -1,4 +1,23 @@
-// Reexport the native module. On web, it will be resolved to ExpoAppUpdatesAndroidIosModule.web.ts
-// and on native platforms to ExpoAppUpdatesAndroidIosModule.ts
-export { default } from './ExpoAppUpdatesAndroidIosModule';
+import * as updates from './updates';
+
+export {
+  type AppUpdateCopy,
+  AppUpdateGate,
+  type AppUpdateGateProps,
+  type AppUpdateGateRef,
+  type AppUpdateTheme,
+} from './AppUpdateGate';
 export * from './ExpoAppUpdatesAndroidIos.types';
+export type { UpdateDecision, UpdatePolicy } from './updateGatePolicy';
+
+export {
+  addInstallStateListener,
+  addStoreKitDismissListener,
+  addUpdateFlowResultListener,
+  checkForUpdateAsync,
+  completeFlexibleUpdateAsync,
+  resumeImmediateUpdateAsync,
+  startUpdateAsync,
+} from './updates';
+
+export default updates;

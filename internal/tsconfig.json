@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.strict.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "customConditions": [],
+    "types": ["node"]
+  },
+  "include": ["module_scripts/*.ts"]
+}

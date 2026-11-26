@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.strict.json",
+  "compilerOptions": {
+    "declaration": true,
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "customConditions": [],
+    "noEmit": false,
+    "outDir": "build",
+    "rootDir": "src",
+    "isolatedDeclarations": true
+  },
+  "include": ["src"],
+  "exclude": ["src/**/__tests__"]
+}

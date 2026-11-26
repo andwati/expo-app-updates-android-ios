@@ -29,7 +29,6 @@
         "noUselessRename": "warn",
         "noUselessStringConcat": "warn",
         "noUselessTernary": "warn",
-        "noVoid": "warn",
         "useLiteralKeys": "warn"
       },
       "correctness": {
@@ -52,16 +51,22 @@
           "level": "warn",
           "options": { "ignoreRestSiblings": true, "ignoreUsingDeclarations": false }
         },
-        "useExhaustiveDependencies": "off",
+        "useExhaustiveDependencies": "error",
         "useHookAtTopLevel": "error",
         "useIsNan": "error",
         "useParseIntRadix": "warn",
         "useValidTypeof": "error"
       },
+      "nursery": {
+        "noFloatingPromises": "error",
+        "noMisusedPromises": "error"
+      },
       "performance": { "noDelete": "error" },
       "security": { "noGlobalEval": "warn", "noScriptUrl": "warn" },
       "style": {
+        "noNonNullAssertion": "error",
         "noYodaExpression": "warn",
+        "useImportType": "error",
         "useArrayLiterals": "warn",
         "useBlockStatements": "warn",
         "useConsistentArrowReturn": "off",
@@ -83,6 +88,7 @@
         "noDuplicateJsxProps": "error",
         "noDuplicateObjectKeys": "error",
         "noDuplicateParameters": "error",
+        "noExplicitAny": "error",
         "noFallthroughSwitchClause": "warn",
         "noFunctionAssign": "error",
         "noGlobalAssign": "warn",

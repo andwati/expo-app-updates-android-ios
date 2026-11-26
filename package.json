@@ -5,20 +5,16 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
-    "build": "node internal/module_scripts/build.js",
-    "clean": "node internal/module_scripts/clean.js",
-    "lint": "eslint src/",
-    "test": "node internal/module_scripts/test.js",
-    "prepare": "node internal/module_scripts/prepare.js",
-    "open:ios": "node internal/module_scripts/open-ios.js",
-    "open:android": "node internal/module_scripts/open-android.js"
+    "build": "tsc",
+    "clean": "tsc --build --clean",
+    "lint": "biome check --error-on-warnings .",
+    "test": "jest",
+    "prepare": "tsc",
+    "open:ios": "node internal/module_scripts/open-ios.ts",
+    "open:android": "node internal/module_scripts/open-android.ts",
+    "typecheck": "tsc --noEmit && tsc -p internal/tsconfig.json && tsc -p example/tsconfig.json"
   },
-  "keywords": [
-    "react-native",
-    "expo",
-    "expo-app-updates-android-ios",
-    "ExpoAppUpdatesAndroidIos"
-  ],
+  "keywords": ["react-native", "expo", "expo-app-updates-android-ios", "ExpoAppUpdatesAndroidIos"],
   "repository": "https://github.com/andwati/expo-app-updates-android-ios",
   "bugs": {
     "url": "https://github.com/andwati/expo-app-updates-android-ios/issues"
@@ -32,9 +28,9 @@
     "@biomejs/biome": "2.6.9",
     "@react-native/jest-preset": "0.88.1",
     "@types/jest": "^30.0.0",
+    "@types/node": "^26.6.6",
     "@types/react": "~19.3.0",
     "babel-preset-expo": "~58.0.22",
-    "eslint-config-universe": "^16.1.2",
     "expo": "^58.0.21",
     "jest": "^30.0.0",
     "jest-expo": "~58.0.13",
@@ -44,13 +40,11 @@
   },
   "jest": {
     "preset": "jest-expo",
-    "roots": [
-      "<rootDir>/src"
-    ]
+    "roots": ["<rootDir>/src"]
   },
   "peerDependencies": {
-    "expo": "*",
-    "react": "*",
-    "react-native": "*"
+    "expo": "^58.0.0",
+    "react": "^19.0.0",
+    "react-native": "~0.88.0"
   }
 }
