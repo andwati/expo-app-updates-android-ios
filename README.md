@@ -5,12 +5,12 @@ Typed store updates for Expo SDK 58. On Android, Google Play supplies immediate 
 ## Install
 
 ```sh
-npx expo install expo-app-updates-android-ios
-npx expo run:android
-npx expo run:ios
+pnpm exec expo install expo-app-updates-android-ios
+pnpm exec expo run:android
+pnpm exec expo run:ios
 ```
 
-Use a development or release build with the native module linked. Managed Expo apps can use Prebuild or EAS Build with the same JavaScript configuration. In an existing bare app with Expo Modules configured, run `npx pod-install` for iOS. Expo Go and web report `unsupported`.
+Use a development or release build with the native module linked. Managed Expo apps can use Prebuild or EAS Build with the same JavaScript configuration. In an existing bare app with Expo Modules configured, run `pnpm dlx pod-install` for iOS. Expo Go and web report `unsupported`.
 
 ## Bundled UI
 
