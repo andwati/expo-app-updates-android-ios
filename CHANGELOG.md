@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2
+
+- Publish GitHub releases to npm using Trusted Publishing.
+- Support manually running the release workflow for an existing tag.
+
 ## 0.1.1
 
 - Add Android emulator screenshots to the README and move the integration guide to `docs/`.

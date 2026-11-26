@@ -4,13 +4,13 @@ plugins {
 }
 
 group = 'com.andwati.appupdatesandroid'
-version = '0.1.1'
+version = '0.1.2'
 
 android {
   namespace "com.andwati.appupdatesandroid"
   defaultConfig {
-    versionCode 2
-    versionName "0.1.1"
+    versionCode 3
+    versionName "0.1.2"
   }
   lint {
     abortOnError = true
