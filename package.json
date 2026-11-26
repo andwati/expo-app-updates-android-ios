@@ -13,11 +13,14 @@
     "open:ios": "node internal/module_scripts/open-ios.ts",
     "open:android": "node internal/module_scripts/open-android.ts",
     "typecheck": "tsc --noEmit && tsc -p internal/tsconfig.json && tsc -p src/__tests__/tsconfig.json && tsc -p example/tsconfig.json",
-    "verify": "npm run build && npm run typecheck && npm run lint && npm run test -- --runInBand",
-    "prepack": "npm run verify"
+    "verify": "pnpm build && pnpm typecheck && pnpm lint && pnpm test --runInBand",
+    "prepack": "pnpm verify"
   },
   "keywords": ["react-native", "expo", "expo-app-updates-android-ios", "ExpoAppUpdatesAndroidIos"],
-  "repository": "https://github.com/andwati/expo-app-updates-android-ios",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andwati/expo-app-updates-android-ios.git"
+  },
   "bugs": {
     "url": "https://github.com/andwati/expo-app-updates-android-ios/issues"
   },
